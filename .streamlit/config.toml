@@ -1,0 +1,15 @@
+# Base theme for the app. Fine-grained styling is layered on top via ui/theme.py.
+[theme]
+base = "light"
+primaryColor = "#4F46E5"
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#F6F7FB"
+textColor = "#0F172A"
+font = "sans serif"
+
+[client]
+toolbarMode = "minimal"
+showErrorDetails = true
+
+[ui]
+hideTopBar = false

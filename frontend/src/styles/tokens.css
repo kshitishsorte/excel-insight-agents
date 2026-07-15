@@ -1,0 +1,135 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-void: #0a0a0f;
+  --bg-surface: #16161f;
+  --bg-surface-raised: #1d1d28;
+  --border-hairline: #2a2a38;
+  --text-primary: #f1f0f5;
+  --text-muted: #9694a6;
+  --accent-azure: #5b7fff;
+  --accent-violet: #9c6bff;
+  --accent-aqua: #2dd9c4;
+  --signature: linear-gradient(135deg, var(--accent-azure), var(--accent-violet) 55%, var(--accent-aqua));
+}
+
+@property --glow-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 135deg;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg-void);
+  color: var(--text-primary);
+  font-family: Inter, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Scrollbars — quiet, on-theme */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-hairline) transparent;
+}
+*::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+*::-webkit-scrollbar-thumb {
+  background: var(--border-hairline);
+  border-radius: 6px;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: #3a3a4c;
+}
+
+/* Visible keyboard focus everywhere */
+:focus-visible {
+  outline: 2px solid var(--accent-azure);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* ---- Signature: Analysis Canvas gradient border-glow ------------------- */
+.canvas-glow {
+  position: relative;
+  border-radius: 18px;
+  background: var(--bg-surface);
+}
+.canvas-glow::before {
+  content: "";
+  position: absolute;
+  inset: -1.5px;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: conic-gradient(
+    from var(--glow-angle),
+    var(--accent-azure),
+    var(--accent-violet),
+    var(--accent-aqua),
+    var(--accent-azure)
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.55;
+  transition: opacity 1.2s ease;
+  pointer-events: none;
+}
+/* Resting: static, subtle. Active: slow rotation + slightly brighter. */
+.canvas-glow.resting::before {
+  opacity: 0.4;
+}
+.canvas-glow.active::before {
+  opacity: 0.9;
+  animation: glow-rotate 6s linear infinite;
+}
+@keyframes glow-rotate {
+  to {
+    --glow-angle: 495deg;
+  }
+}
+
+/* ---- Empty-state ambient gradient blob -------------------------------- */
+.ambient-blob {
+  position: absolute;
+  width: 44rem;
+  height: 44rem;
+  border-radius: 9999px;
+  filter: blur(90px);
+  opacity: 0.22;
+  background: var(--signature);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ---- Small utilities -------------------------------------------------- */
+.text-gradient {
+  background: var(--signature);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.thin-divider {
+  border-color: var(--border-hairline);
+}
+
+/* Reduced motion: kill the drift + border rotation, keep everything static */
+@media (prefers-reduced-motion: reduce) {
+  .canvas-glow.active::before {
+    animation: none;
+  }
+  .animate-blob-drift,
+  .animate-fade-in {
+    animation: none !important;
+  }
+}

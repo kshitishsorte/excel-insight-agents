@@ -1,0 +1,21 @@
+# --- core pipeline (agents, cleaning, EDA) ---
+pandas>=2.0
+numpy>=1.24
+openpyxl>=3.1
+plotly>=5.18
+ollama>=0.3.0
+pydantic>=2.5
+scipy>=1.11
+
+# --- FastAPI backend + WebSockets ---
+fastapi>=0.110
+uvicorn[standard]>=0.27
+python-multipart>=0.0.9
+websockets>=12
+
+# --- Voice chat (offline STT + TTS) ---
+faster-whisper>=1.0    # speech-to-text (Whisper via CTranslate2, CPU int8)
+piper-tts>=1.3         # text-to-speech (local neural voice)
+
+# --- legacy Streamlit UI (app_streamlit_legacy.py, optional fallback) ---
+streamlit>=1.30

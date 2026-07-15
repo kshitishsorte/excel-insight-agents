@@ -1,0 +1,30 @@
+# ---- Python ----
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+
+# ---- Node / frontend ----
+frontend/node_modules/
+frontend/dist/
+npm-debug.log*
+yarn-error.log*
+
+# ---- Local models / large binaries (models live under E:\LLM, not the repo) ----
+*.gguf
+*.onnx
+voice_models/
+
+# ---- OS / editor ----
+.DS_Store
+Thumbs.db
+*.log
+.idea/
+.vscode/
+
+# ---- Local runtime artifacts ----
+*.tmp
+cleaned_data.xlsx
